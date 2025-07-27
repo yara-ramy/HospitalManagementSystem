@@ -19,7 +19,7 @@ namespace HospitalNew.API.Controllers
             _specialtiesService = specialtiesService;
             _mapper = mapper;
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Patient")]
 
         [HttpGet]
         public async Task<IActionResult> GetAllSpecialties()

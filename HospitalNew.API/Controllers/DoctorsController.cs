@@ -19,7 +19,7 @@ namespace HospitalNew.API.Controllers
             _mapper = mapper;
             _service = service;
         }
-        [Authorize(Roles = "Admin,Doctor")]
+        [Authorize(Roles = "Admin,Doctor,Patient")]
 
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
