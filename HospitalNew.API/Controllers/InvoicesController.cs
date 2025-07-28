@@ -28,7 +28,7 @@ namespace HospitalNew.API.Controllers
             var inv = _mapper.Map<IEnumerable<InvoiceDetailsDto>>(invoice);
             return Ok(inv);
         }
-        [Authorize(Roles = "Admin,Accountant,Patient")]
+        [Authorize(Roles = "Admin,Accountant")]
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetInvoiceById(int id)
@@ -57,11 +57,7 @@ namespace HospitalNew.API.Controllers
             if(!result.Success)
                 return BadRequest(result.Message);
             return Ok(result);
-            //var invoice = await _invoicesService.GetById(id);
-            //if (invoice == null)
-            //    return NotFound($"No invoice was found with the ID: {id}");
-            //_mapper.Map(dto, invoice);
-            //return Ok(invoice);
+
         }
         [Authorize(Roles = "Admin,Accountant")]
 
@@ -72,11 +68,7 @@ namespace HospitalNew.API.Controllers
             if (result == null)
                 return NotFound($"No invoice was found with the ID: {id}");
             return Ok(result);
-            //var invoice = await _invoicesService.GetById(id);
-            //if (invoice == null)
-            //    return NotFound($"No invoice was found with the ID: {id}");
-            //_invoicesService.Delete(invoice);
-            //return Ok(invoice);
+
         }
     }
 }

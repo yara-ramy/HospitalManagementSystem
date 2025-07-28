@@ -6,6 +6,7 @@
         Doctor,
         Patient,
         Receptionist,
+        Manager,
         Accountant
     }
 }

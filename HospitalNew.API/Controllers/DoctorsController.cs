@@ -19,7 +19,7 @@ namespace HospitalNew.API.Controllers
             _mapper = mapper;
             _service = service;
         }
-        [Authorize(Roles = "Admin,Doctor,Patient")]
+        [Authorize(Roles = "Admin,Doctor,Patient,Manager")]
 
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
@@ -28,7 +28,7 @@ namespace HospitalNew.API.Controllers
             var doctors = _mapper.Map<IEnumerable<DoctorDetailsDto>>(docs);
             return Ok(doctors);
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Manager")]
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetDoctorById(int id)
@@ -38,7 +38,7 @@ namespace HospitalNew.API.Controllers
                 return NotFound($"No doctor was found with the ID: {id}");
             return Ok(doc);
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Manager,Patient")]
 
         [HttpGet("GetBySpecialtyId/{specialtyId}")]
         public async Task<IActionResult> GetDoctorBySpecialtyId(int specialtyId)
@@ -46,7 +46,7 @@ namespace HospitalNew.API.Controllers
             var doctors = await _service.GetDoctorBySpecialty(specialtyId);
             return Ok(doctors);
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Manager")]
 
         [HttpPost]
         public async Task<IActionResult> AddDoctor([FromForm] DoctorDto dto)
@@ -57,7 +57,7 @@ namespace HospitalNew.API.Controllers
             return Ok(doc);
             
         }
-        [Authorize(Roles = "Admin,Doctor")]
+        [Authorize(Roles = "Admin,Doctor,Manager")]
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateDocInfo(int id, [FromForm] DoctorDto dto)
@@ -68,14 +68,9 @@ namespace HospitalNew.API.Controllers
                 return BadRequest(result.Message);
             return Ok(result);
             
-            //var doc = await _service.GetById(id);
-            //if (doc == null)
-            //    return NotFound($"No doctor was found with the ID: {id}");
-            //_mapper.Map(dto, doc);
-            //_service.Update(doc);
-            //return Ok(doc);
+
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Manager")]
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteDoctor(int id)
@@ -84,11 +79,7 @@ namespace HospitalNew.API.Controllers
             if (doctor == null)
                 return NotFound($"No doctor exists with the ID: {id}");
             return Ok(doctor);
-            //var doc = await _service.GetById(id);
-            //if (doc == null)
-            //    return NotFound($"No doctor was found with the ID: {id}");
-            //_service.Delete(doc);
-            //return Ok(doc);
+
         }
     }
 }

@@ -19,7 +19,7 @@ namespace HospitalNew.API.Controllers
             _specialtiesService = specialtiesService;
             _mapper = mapper;
         }
-        [Authorize(Roles = "Admin,Patient")]
+        [Authorize(Roles = "Admin,Patient,Manager")]
 
         [HttpGet]
         public async Task<IActionResult> GetAllSpecialties()
@@ -27,7 +27,7 @@ namespace HospitalNew.API.Controllers
             var specialties = await _specialtiesService.GetAll();
             return Ok(specialties);
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Manager")]
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSpecialtyById(int id)
@@ -37,7 +37,7 @@ namespace HospitalNew.API.Controllers
                 return NotFound($"No specialty was found with the ID: {id}");
             return Ok(spec);
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Manager")]
 
         [HttpPost]
         public async Task<IActionResult> AddSpecialty([FromForm] SpecialtyDto specialty)
@@ -45,7 +45,7 @@ namespace HospitalNew.API.Controllers
             await _specialtiesService.AddSpecialty(specialty);
             return Ok(specialty);
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Manager")]
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateSpecialty(int id, [FromForm] SpecialtyDto specialty)
@@ -55,7 +55,7 @@ namespace HospitalNew.API.Controllers
                 return NotFound($"No specialty was found with the ID: {id}");
             return Ok(result);
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Manager")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSpecialty(int id)
         {

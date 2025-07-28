@@ -30,7 +30,7 @@ namespace HospitalNew.API.Controllers
             var app = _mapper.Map<IEnumerable<AppointmentDetailsDto>>(appointments);
             return Ok(app);
         }
-        [Authorize(Roles = "Admin,Receptionist")]
+        [Authorize(Roles = "Admin,Receptionist,Patient")]
         [HttpPost]
         public async Task<IActionResult> Add([FromForm]AppointmentDto dto)
         {

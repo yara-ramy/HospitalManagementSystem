@@ -44,7 +44,7 @@ namespace HospitalNew.API.Controllers
             var apps = _mapper.Map<IEnumerable<AppointmentDetailsDto>>(appointments);
             return Ok(apps);
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Receptionist")]
 
         [HttpPost]
         public async Task<IActionResult> AddPatient([FromForm] PatientDto dto)
@@ -61,14 +61,9 @@ namespace HospitalNew.API.Controllers
             if (result == null)
                 return NotFound($"No patient was found with the ID: {id}");
             return Ok(result);
-            //var patient = await _patientsService.GetById(id);
-            //if(patient == null)
-            //    return NotFound($"No patient was found with the ID: {id}");
-            //_mapper.Map(dto, patient);
-            //_patientsService.Update(patient);
-            //return Ok(patient);
+
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Receptionist")]
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePatient(int id)
@@ -77,11 +72,7 @@ namespace HospitalNew.API.Controllers
             if(patient == null)
                 return NotFound($"No patient was found with the ID: {id}");
             return Ok(patient);
-            //var patient = await _patientsService.GetById(id);
-            //if (patient == null)
-            //    return NotFound($"No patient was found with the ID: {id}");
-            //_patientsService.Delete(patient);
-            //return Ok(patient);
+
         }
     }
 }
